@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  iris:
+  main:
     runs-on: ubuntu-24.04
     defaults:
       run:
@@ -46,6 +46,7 @@ jobs:
         python --version
     
     - name: Run Wine Quality
+      working-directory: src/pytorch
       run: |
         python wine_quality.py
     
