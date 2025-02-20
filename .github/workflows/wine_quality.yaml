@@ -1,0 +1,54 @@
+name: Wine Quality
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  iris:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Cache conda
+      uses: actions/cache@v4
+      id: cache
+      env:
+        # Increase this value to reset cache if environment.yml has not changed
+        CACHE_NUMBER: 1
+      with:
+        path: |
+          ~/conda_pkgs_dir
+          /usr/share/miniconda
+        key:
+          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+          hashFiles('environment.yml') }}
+
+    - name: Set up Anaconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-update-conda: true
+        activate-environment: mlflow-playground
+        environment-file: environment.yml
+        use-only-tar-bz2: false
+
+    - name: Debug Environment
+      run: |
+        conda env list
+        conda list
+        python --version
+    
+    - name: Run Wine Quality
+      run: |
+        python wine_quality.py
+    
+   
+   
+    
