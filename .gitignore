@@ -1,3 +1,12 @@
 data/
 runs/
 mlruns/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.h5
+*.log
+*.csv
+*.tsv
