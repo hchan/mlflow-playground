@@ -54,9 +54,7 @@ def eval_metrics(actual, pred):
 def print_summary(rmse, mae, r2):
     summary = f"RMSE: {rmse}\nMAE: {mae}\nR2: {r2}\n"
     print(summary)
-    if os.getenv("GITHUB_ACTIONS"):
-        with open(os.getenv("GITHUB_STEP_SUMMARY"), "a") as f:
-            f.write(summary)
+    
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
